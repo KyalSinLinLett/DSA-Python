@@ -2,7 +2,7 @@ class HashTable:
     '''
     Hash table implementation with linear probing as collision handling
     '''
-    
+
     def __init__(self):
         self.MAX_SIZE = 10
         self.arr = [None for i in range(self.MAX_SIZE)]
@@ -71,6 +71,9 @@ if __name__ == "__main__":
 
     t = HashTable()
 
+    t["march 6"] = 20
+    t["march 17"] = 88
+
     # with open('./datasets/nyc_weather.csv', 'r') as f:
     #     for row in f:
     #         token = row.split(",")
@@ -83,43 +86,3 @@ if __name__ == "__main__":
 
     # print(t['Jan 9'])
 
-    # t['march 6'] = 1
-    # t['march 17'] = 100
-    # t['march 7'] = 10
-    # t['march 7'] = 45
-    # # t['banana'] = 45
-
-    # # print(t.get_hash('banana'))
-    # # print(t.get_hash('march 6'))
-    # # print(t.get_hash('march 7'))
-
-    # print(t['march 6'])
-    # print(t['march 17'])
-    # print(t['march 7'])
-    # print('\n')
-    # print(t.arr)
-
-    # del t['march 6']
-
-    # print('\n')
-    # print(t.arr)
-
-    # del t['march 17']
-    # del t['march 7']
-
-    # print('\n')
-    # print(t.arr)
-
-    # # t['march 17'] = 100
-    # # t['march 6'] = 1324
-
-    # # print(t['march 6'])
-    # # print(t['march 17'])
-
-    # t['march 7'] = 10
-    # t['march 7'] = 45
-
-    # print('\n')
-    # print(t.arr)
-
-    # del t['march 17']
