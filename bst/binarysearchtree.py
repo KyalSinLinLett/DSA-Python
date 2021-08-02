@@ -4,20 +4,20 @@ class BSTNode:
         self.left = None
         self.right = None
         
-    def add_child(self, data):
+    def insert_node(self, data):
         
         if data == self.data:
             return 
         
         if data < self.data:
             if self.left:
-                self.left.add_child(data) # keep doing down until u reach the leaves
+                self.left.insert_node(data) # keep doing down until u reach the leaves
             else:
                 self.left = BSTNode(data)
                 
         else:
             if self.right:
-                self.right.add_child(data)
+                self.right.insert_node(data)
             else:
                 self.right = BSTNode(data)
                 
@@ -37,7 +37,7 @@ class BSTNode:
                 return self.right.search(val)
             else:
                 return False
-            
+
     # exercise1 
     def find_min(self):        
         if not self.left:
@@ -52,6 +52,37 @@ class BSTNode:
         
         return self.right.find_max()
     
+    def delete(self, val):
+        if val < self.data:
+            if self.left:
+                self.left = self.left.delete(val)
+        elif val > self.data:
+            if self.right:
+                self.right = self.right.delete(val)
+        else:
+            # when node has no child -> just set it as none
+            if self.left is None and self.right is None:
+                return None
+            
+            # when node has only one child -> set the node as its left/right child node
+            if self.left is None:
+                return self.right
+            
+            if self.right is None:
+                return self.left 
+            
+            # when node has two children -> set node as the min of right subtree
+            # min_node = self.right.find_min()
+            # self.data = min_node
+            # self.right = self.right.delete(min_node)
+            
+            # max of left subtree strategy - exercise BST2
+            max_node = self.left.find_max()
+            self.data = max_node
+            self.left = self.left.delete(max_node)
+            
+        return self
+        
     # calculate sum
     def calculate_sum(self):        
         return sum(self.in_order_traversal())
@@ -99,21 +130,25 @@ def build_tree(elements):
     root = BSTNode(elements[0])
 
     for i in range(len(elements)):
-        root.add_child(elements[i])
+        root.insert_node(elements[i])
         
     return root
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
+    numbers_tree.insert_node(45)
+    print(numbers_tree.in_order_traversal())
+    print(numbers_tree.pre_order_traversal())
+    print(numbers_tree.post_order_traversal())
+    numbers_tree.delete(20)
+    print("After deleting 20 ",numbers_tree.in_order_traversal()) # this should print [1, 4, 9, 17, 18, 23, 34]
 
-    numbers = [17, 4, 20, 9, 23, 18, 34, 1, 18, 4]
-    number_tree = build_tree(numbers)
-    
-    print(number_tree.in_order_traversal())
-    print(number_tree.pre_order_traversal())
-    print(number_tree.post_order_traversal())
+    numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
+    numbers_tree.delete(9)
+    print("After deleting 9 ",numbers_tree.in_order_traversal())  # this should print [1, 4, 17, 18, 20, 23, 34]
 
-    print(number_tree.search(14))  
-    print(number_tree.find_min())
-    print(number_tree.find_max())
-    print(number_tree.calculate_sum())
-    
+    numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
+    numbers_tree.delete(17)
+    print("After deleting 17 ",numbers_tree.in_order_traversal())  # this should print [1, 4, 9, 18, 20, 23, 34]
+
+
